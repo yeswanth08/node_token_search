@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            --fa-style-family-duotone: "Font Awesome 6 Duotone";
+            background-color: #000000; 
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4af241;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4af241;
+        }
+    </style>
+</head>
+<body>
+    <form id="loginForm">
+        <b><h2 style="color: #f2b827; margin-bottom: 0%;">Are you Whitelisted for Free Mint?</h2></b><br>
+        <input type="text" id="token" name="token" required placeholder="Paste your Solana Address here:" ><br>
+        <button type="submit">Check</button>
+    </form>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const token = document.getElementById('token').value;
+            axios.get(`/login?token=${token}`)
+                .then(response => {
+                    alert(response.data.message);
+                })
+                .catch(error => {
+                    console.error(error.response.data.message);
+                });
+        });
+    </script>
+</body>
+</html>
